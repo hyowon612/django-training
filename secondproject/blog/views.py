@@ -22,3 +22,12 @@ def create(request):
     new_blog.pub_date = timezone.now()
     new_blog.save()
     return redirect('detail', new_blog.id)
+
+def update(request, id):
+    blog = Blog.objects.get(id = id)
+    if request.method == "POST":
+        blog.title = request.POST["title"]
+        blog.body = request.POST["body"]
+        blog.save()
+        return redirect('detail', blog.id)
+    return render(request, 'update.html', {'blog': blog})
