@@ -31,3 +31,8 @@ def update(request, id):
         blog.save()
         return redirect('detail', blog.id)
     return render(request, 'update.html', {'blog': blog})
+
+def delete(request, id):
+    blog = Blog.objects.get(id = id)
+    blog.delete()
+    return redirect("home")
