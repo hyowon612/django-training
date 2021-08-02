@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
     path('<str:id>', detail, name='detail'),
+    path('new/', new, name='new'),
+    path('create/', create, name='create')
 ]
