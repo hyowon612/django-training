@@ -2,14 +2,10 @@
 
 {% block content %}
     <h1>Blog Project</h1>
-    <div>
-        <a href="{% url 'blog:new' %}">write blog</a>
-    </div>
     <div class="container">
       {% for blog in blogs%}
       <div>
         <h3>{{ blog.title }}</h3>
-		{{ blog.id }} <br />
         {{ blog.writer }} <br />
 		{{ blog.summary }}
 		<a href="{% url 'blog:detail' blog.id %}">...more</a>
