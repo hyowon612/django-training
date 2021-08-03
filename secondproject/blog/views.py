@@ -21,7 +21,7 @@ def create(request):
     new_blog.body = request.POST['body']
     new_blog.pub_date = timezone.now()
     new_blog.save()
-    return redirect('detail', new_blog.id)
+    return redirect('blog:detail', new_blog.id)
 
 def update(request, id):
     blog = Blog.objects.get(id = id)
@@ -29,7 +29,7 @@ def update(request, id):
         blog.title = request.POST["title"]
         blog.body = request.POST["body"]
         blog.save()
-        return redirect('detail', blog.id)
+        return redirect('blog:detail', blog.id)
     return render(request, 'update.html', {'blog': blog})
 
 def delete(request, id):
