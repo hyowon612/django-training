@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    {{user.username}}
+    {{user.location}}에 사는 {{user.university}}다니는 {{user.nickname}} 안녕하세요!
     {% endif %}
     <h1>Blog Project</h1>
     <div class="container">
