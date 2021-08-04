@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+    {{user.username}}
+    {% endif %}
     <h1>Blog Project</h1>
     <div class="container">
       {% for blog in blogs%}
