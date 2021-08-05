@@ -2,17 +2,39 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    {{user.location}}에 사는 {{user.university}}다니는 {{user.nickname}} 안녕하세요!
+    {{user.location}}에 사는 {{user.university}}다니는 {{user.nickname}}님 안녕하세요!
     {% endif %}
+
+    <form action="{% url 'home' %}">
+      <p>제목으로 게시글 검색</p>
+      <input type="text" name="query">
+    </form>
     <h1>Blog Project</h1>
-    <div class="container">
+    <div class="conatainer">
       {% for blog in blogs%}
       <div>
         <h3>{{ blog.title }}</h3>
+        {{ blog.id }} <br />
         {{ blog.writer }} <br />
-		{{ blog.summary }}
-		<a href="{% url 'blog:detail' blog.id %}">...more</a>
+        {{ blog.summary }}
+        <a href="{% url 'blog:detail' blog.id %}">...more</a>
       </div>
-      {%endfor %}
+      {% endfor %}
+    </div>
+
+    <br/>
+
+    <div class="paginator">
+      {% if blogs.has_previous %}
+      <a href="?page=1">처음</a>
+      <a href="?page={{blogs.previous_page_number}}">이전</a>
+      {% endif %}
+      <span>{{blogs.number}}</span>
+      <span>of</span>
+      <span>{{blogs.paginator.num_pages}}</span>
+      {% if blogs.has_next %}
+      <a href="?page={{blogs.next_page_number}}">다음</a>
+      <a href="?page={{blogs.paginator.num_pages}}">마지막</a>
+      {% endif %}
     </div>
 {% endblock %}

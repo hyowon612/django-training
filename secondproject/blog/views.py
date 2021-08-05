@@ -1,12 +1,23 @@
+from django.core import paginator
+from django.db.models import query
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
+from django.core.paginator import Paginator
 from .models import Blog
 from .forms import BlogForm
 # Create your views here.
 
 def home(request):
-    blogs = Blog.objects.all()
-    return render(request, 'home.html', {'blogs': blogs})
+    blogs = Blog.objects.order_by('-pub_date')
+
+    query = request.GET.get('query')
+    if query:
+        blogs = Blog.objects.filter(title__icontains=query).order_by('-pub_date')
+
+    paginator = Paginator(blogs, 3)
+    page = request.GET.get('page')
+    paginated_blogs = paginator.get_page(page)
+    return render(request, 'home.html', {'blogs': paginated_blogs})
 
 def detail(request, id):
     blog = get_object_or_404(Blog, pk = id)
